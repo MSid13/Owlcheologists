@@ -1,0 +1,89 @@
+# Import necessary modules from the Hub SDK
+from hub import light_matrix, port
+import runloop
+import motor_pair
+import motor
+from hub import motion_sensor
+
+def forward(number):
+    return number
+
+def backward(number):
+    return -number
+
+async def move_straight_for_degrees(left_motor:int, right_motor:int, degrees:int, speed:int) -> None:
+    #motor_pair.pair(motor_pair.PAIR_1, left_motor, right_motor)
+
+    motor.reset_relative_position(left_motor, 0)
+    motor.reset_relative_position(right_motor, 0)
+# Reset the yaw angle to zero and wait for stabilization
+    motion_sensor.reset_yaw(0)
+    #await runloop.until(motion_sensor.stable)
+
+# Set the target angle (0 degrees for straight movement)
+    target_angle = 0
+
+# Define the proportional gain for correction
+    Kp =0.08 #1# Adjust this value based on your robot's behavior
+
+    # Loop to maintain straight movement
+
+    while (abs(motor.relative_position(left_motor))) < abs(degrees):
+    # Get the current yaw angle
+        current_angle = motion_sensor.tilt_angles()[0]
+    # Calculate the error
+        error = target_angle - current_angle# Corrected to target - current
+    # Calculate the correction
+        correction = int(Kp * error)
+    # Adjust the motor speeds to apply correction for straight movement
+        left_speed = speed + int( correction)
+        right_speed = speed -int( correction)
+    # Move the robot with corrected motor speeds
+        motor_pair.move_tank(motor_pair.PAIR_1,left_speed, right_speed)
+    # Small delay for stability
+        await runloop.sleep_ms(10)
+# Stop the motors after the loop
+    motor_pair.stop(motor_pair.PAIR_1)
+
+    # You run the normal move_for_degrees function.
+    ## CODE STARTS HERE
+
+async def main():
+    motor_pair.pair(motor_pair.PAIR_1, port.F, port.E)
+    new_angle = motion_sensor.tilt_angles()[0]
+    print ('after reset',new_angle)#after reset
+    #await move_straight_for_degrees(port.F, port.E, 100, 600) # first straight before first turn
+    await move_straight_for_degrees(port.F, port.E, forward(100), 600) # first straight before first turn
+
+    await motor_pair.move_tank_for_degrees(motor_pair.PAIR_1, 67, 0, 600) # first turn to turn toward mission
+
+    await motor_pair.move_for_degrees(motor_pair.PAIR_1, 1350, 0, velocity=600) # go forward towards mission
+
+    await motor_pair.move_tank_for_degrees(motor_pair.PAIR_1, 280, 0, 600) # turn towards who lived here 
+
+    #await motor_pair.move_for_degrees(motor_pair.PAIR_1, -170, 0, velocity=600) # go back to push the thingy and raise the board
+    await motor_pair.move_for_degrees(motor_pair.PAIR_1, backward(170), 0, velocity=600) # go back to push the thingy and raise the board
+    
+    await move_straight_for_degrees(port.F, port.E, 150, 600) #go forward to make sure we can do turn towards whats on sale
+    # new_angle = motion_sensor.tilt_angles()[0]
+    # print ('go forward to turn to market',new_angle)
+    await motor_pair.move_tank_for_degrees(motor_pair.PAIR_1, 500, 0, 600) # turn to whats on sale 
+ 
+    # new_angle = motion_sensor.tilt_angles()[0]
+    # print ('arm goes down',new_angle)
+    await move_straight_for_degrees(port.F, port.E, 300, 200) # do whats on sale using the attatched bar
+    new_angle = motion_sensor.tilt_angles()[0]
+    print ('pushing table',new_angle)
+    await motor_pair.move_for_degrees(motor_pair.PAIR_1, backward(170), 0, velocity=600)
+    new_angle = motion_sensor.tilt_angles()[0]
+    print (' go back',new_angle)
+
+    await motor_pair.move_tank_for_degrees(motor_pair.PAIR_1, 200, -100, 600) # turn towards the basket
+    new_angle = motion_sensor.tilt_angles()[0]
+    print ('turn to basket',new_angle)
+    await motor.run_for_degrees(port.D, 30, 500) 
+    await motor_pair.move_for_degrees(motor_pair.PAIR_1, backward(250), 0, velocity=600)
+    await motor.run_for_degrees(port.D, -20, 500)
+    await move_straight_for_degrees(port.F, port.E, 500, 200)
+    
+runloop.run(main())
