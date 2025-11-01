@@ -1,0 +1,105 @@
+# Import necessary modules from the Hub SDK
+from hub import light_matrix, port
+import runloop
+import motor_pair
+import motor
+from hub import motion_sensor
+
+def forward(number):
+    return number
+
+def backward(number):
+    return -number
+
+async def move_straight_for_degrees(left_motor:int, right_motor:int, degrees:int, speed:int) -> None:
+    #motor_pair.pair(motor_pair.PAIR_1, left_motor, right_motor)
+
+    motor.reset_relative_position(left_motor, 0)
+    motor.reset_relative_position(right_motor, 0)
+# Reset the yaw angle to zero and wait for stabilization
+    motion_sensor.reset_yaw(0)
+    #await runloop.until(motion_sensor.stable)
+
+# Set the target angle (0 degrees for straight movement)
+    target_angle = 0
+
+# Define the proportional gain for correction
+    Kp =0.08 #1# Adjust this value based on your robot's behavior
+
+    # Loop to maintain straight movement
+
+    while (abs(motor.relative_position(left_motor))) < abs(degrees):
+    # Get the current yaw angle
+        current_angle = motion_sensor.tilt_angles()[0]
+    # Calculate the error
+        error = target_angle - current_angle# Corrected to target - current
+    # Calculate the correction
+        correction = int(Kp * error)
+    # Adjust the motor speeds to apply correction for straight movement
+        left_speed = speed + int( correction)
+        right_speed = speed -int( correction)
+    # Move the robot with corrected motor speeds
+        motor_pair.move_tank(motor_pair.PAIR_1,left_speed, right_speed)
+    # Small delay for stability
+        await runloop.sleep_ms(10)
+# Stop the motors after the loop
+    motor_pair.stop(motor_pair.PAIR_1)
+
+    # You run the normal move_for_degrees function.
+    ## CODE STARTS HERE
+
+async def main():   
+    motor_pair.pair(motor_pair.PAIR_1, port.F, port.E)
+    
+    await move_straight_for_degrees(port.F, port.E, 1600, 550)
+
+
+
+    
+    
+
+    await move_straight_for_degrees(port.F, port.E, 200, 550)
+
+    
+    await motor_pair.move_tank_for_degrees(motor_pair.PAIR_1, -100, 0, 600)
+
+    await motor_pair.move_for_degrees(motor_pair.PAIR_1, -200, 0, velocity=400)
+
+
+    await motor.run_for_degrees(port.C, 80, 500) #forward
+
+    await motor.run_for_degrees(port.C, -70, 500) #forward
+
+    await motor.run_for_degrees(port.C, 70, 500) #forward
+
+    await motor.run_for_degrees(port.C, -70, 500) #forward
+
+    await motor.run_for_degrees(port.C, 70, 500) #forward
+
+    await motor.run_for_degrees(port.C, -70, 500) #forward
+
+    await motor.run_for_degrees(port.C, 70, 500) #forward
+
+    await motor.run_for_degrees(port.C, -70, 500) #forward
+
+    await motor.run_for_degrees(port.C, 70, 500) #forward
+
+    await motor.run_for_degrees(port.C, -70, 500) #forward
+
+    await motor.run_for_degrees(port.C, 70, 500) #forward
+
+    await motor.run_for_degrees(port.C, -70, 500) #forward
+
+    await motor.run_for_degrees(port.C, 70, 500) #forward
+
+    await motor.run_for_degrees(port.C, -70, 500) #forward
+
+    await motor.run_for_degrees(port.C, 70, 500) #forward
+
+    await move_straight_for_degrees(port.F, port.E, 200, 550)
+
+
+
+    
+
+runloop.run(main())
