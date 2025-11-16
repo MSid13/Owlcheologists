@@ -106,10 +106,10 @@ async def main():
     await motor_pair.move_tank_for_degrees(motor_pair.PAIR_1, -195, 0, 1000)
 
     # Move straight (straight using gyro)
-    await move_straight_for_degrees(port.F, port.E, 330, 400)
+    await move_straight_for_degrees(port.F, port.E, 320, 400)
 
     # Move arm up to complete mission
-    await motor.run_for_degrees(port.D, 120, 25)
+    await motor.run_for_degrees(port.D, 85, 25)
 
 # RETURNING TO HOME
 
