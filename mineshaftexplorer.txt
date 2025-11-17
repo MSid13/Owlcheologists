@@ -111,6 +111,8 @@ async def main():
     # Move arm up to complete mission
     await motor.run_for_degrees(port.D, 85, 25)
 
+    await runloop.sleep_ms(500)
+
 # RETURNING TO HOME
 
     
