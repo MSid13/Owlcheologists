@@ -1,3 +1,10 @@
+# =============================
+# **Mission 5 - Who lived here?**
+# =============================
+# **Mission 6 - Forge**
+# **Mission 8 - Silo**
+# **Mission 9 - Whats on sale?**
+# **Mission 10 - Tip the scales**
 # Import necessary modules from the Hub SDK
 from hub import light_matrix, port
 import runloop
