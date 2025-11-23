@@ -75,12 +75,9 @@ async def main():
     await motor.run_for_degrees(right_motor_port, -155, 10000) # backward
     await motor.run_for_degrees(right_motor_port, 125, 10000) # forward
 
-    #print the yaw
-    new_angle = motion_sensor.tilt_angles()[0]
 
-    print("YAW 2", new_angle)
 
-    await motor_pair.move_tank_for_degrees(motor_pair.PAIR_1, 45, 0, 250)
+    await motor_pair.move_tank_for_degrees(motor_pair.PAIR_1, 35, 0, 250)
 
 #Go to forge
     await motor_pair.move_for_degrees(motor_pair.PAIR_1, 650, 0, velocity=400)
@@ -91,20 +88,18 @@ async def main():
     await motor_pair.move_tank_for_degrees(motor_pair.PAIR_1, 270, 0, 600) # first turn to turn toward mission
     await motor_pair.move_for_degrees(motor_pair.PAIR_1, 400, 0, velocity=400)
     await motor_pair.move_tank_for_degrees(motor_pair.PAIR_1, 70, 0, 600) # second turn to turn toward mission
-    await motor_pair.move_for_degrees(motor_pair.PAIR_1, -190, 0, velocity=400)
-    await move_straight_for_degrees(port.F, port.E, 210, 550)
+    await motor_pair.move_for_degrees(motor_pair.PAIR_1, -200, 0, velocity=400)
+    await move_straight_for_degrees(port.F, port.E, 220, 550)
     await motor_pair.move_tank_for_degrees(motor_pair.PAIR_1, 500, 0, 600)
     await move_straight_for_degrees(port.F, port.E, 800, 200)
-    await motor.run_for_degrees(right_motor_port, 160, 10000) #forward
 
     await motor_pair.move_for_degrees(motor_pair.PAIR_1, -250, 0, velocity=400)
     await motor_pair.move_tank_for_degrees(motor_pair.PAIR_1, -160, 0, 600)
     await motor_pair.move_for_degrees(motor_pair.PAIR_1, 350, 0, velocity=400)
-    await motor.run_for_degrees(right_motor_port, -160, 10000) #forward
 
     await motor.run_for_degrees(right_motor_port, 160, 10000) #forward
     await motor_pair.move_for_degrees(motor_pair.PAIR_1, -200, 0, velocity=400)
-    await motor_pair.move_tank_for_degrees(motor_pair.PAIR_1, -475, 0, 600)
+    await motor_pair.move_tank_for_degrees(motor_pair.PAIR_1, -470, 0, 600)
     await motor_pair.move_for_degrees(motor_pair.PAIR_1, -1600, 0, velocity=800)
 
 
