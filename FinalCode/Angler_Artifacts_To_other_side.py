@@ -51,8 +51,7 @@ async def move_straight_for_degrees(left_motor:int, right_motor:int, degrees:int
 async def main():
     motor_pair.pair(motor_pair.PAIR_1, port.F, port.E)
 
-    await move_straight_for_degrees(port.F, port.E, 1700, 550)
-
+    await move_straight_for_degrees(port.F, port.E, 1800, 600)
 
 
 
@@ -66,67 +65,71 @@ async def main():
     await motor_pair.move_for_degrees(motor_pair.PAIR_1, -200, 0, velocity=400)
 
 
-    await motor.run_for_degrees(port.C, 80, 300) #forward
+    await motor.run_for_degrees(port.D, 80, 300) #forward
 
-    await motor.run_for_degrees(port.C, -70, 300) #forward
+    await motor.run_for_degrees(port.D, -70, 300) #forward
 
-    await motor.run_for_degrees(port.C, 70, 300) #forward
+    await motor.run_for_degrees(port.D, 70, 300) #forward
 
-    await motor.run_for_degrees(port.C, -70, 300) #forward
+    await motor.run_for_degrees(port.D, -70, 300) #forward
 
-    await motor.run_for_degrees(port.C, 70, 300) #forward
+    await motor.run_for_degrees(port.D, 70, 300) #forward
 
-    await motor.run_for_degrees(port.C, -70, 300) #forward
+    await motor.run_for_degrees(port.D, -70, 300) #forward
 
-    await motor.run_for_degrees(port.C, 70, 300) #forward
+    await motor.run_for_degrees(port.D, 70, 300) #forward
 
-    await motor.run_for_degrees(port.C, -70, 300) #forward
+    await motor.run_for_degrees(port.D, -70, 300) #forward
 
-    await motor.run_for_degrees(port.C, 70, 300) #forward
+    await motor.run_for_degrees(port.D, 70, 300) #forward
 
-    await motor.run_for_degrees(port.C, -70, 300) #forward
+    await motor.run_for_degrees(port.D, -70, 300) #forward
 
-    await motor.run_for_degrees(port.C, 70, 300) #forward
+    await motor.run_for_degrees(port.D, 70, 300) #forward
 
-    await motor.run_for_degrees(port.C, -70, 300) #forward
+    await motor.run_for_degrees(port.D, -70, 300) #forward
 
-    await motor.run_for_degrees(port.C, 70, 300)
-    
-    await motor.run_for_degrees(port.C, -70, 300) #forward
+    await motor.run_for_degrees(port.D, 70, 300)
 
-    await motor.run_for_degrees(port.C, 70, 300)
+    await motor.run_for_degrees(port.D, -70, 300) #forward
 
-    await motor.run_for_degrees(port.C, -70, 300) #forward
+    await motor.run_for_degrees(port.D, 70, 300)
 
-    await motor.run_for_degrees(port.C, 70, 300)
+    await motor.run_for_degrees(port.D, -70, 300) #forward
 
-    await motor.run_for_degrees(port.C, -70, 300) #forward
+    await motor.run_for_degrees(port.D, 70, 300)
 
-    await motor.run_for_degrees(port.C, 70, 300)
+    await motor.run_for_degrees(port.D, -70, 300) #forward
 
-   
+    await motor.run_for_degrees(port.D, 70, 300)
+
+    await motor.run_for_degrees(port.D, -70, 300) #forward
 
 
-    await motor_pair.move_for_degrees(motor_pair.PAIR_1, 210, 0, velocity=550)
+    await motor_pair.move_for_degrees(motor_pair.PAIR_1, 200, 0, velocity=550)
 
 
 
 
 
     await motor.run_for_degrees(port.F, -350, 400) #forward
+    
 
     await motor_pair.move_tank_for_degrees(motor_pair.PAIR_1, -50, 0, 600)
 
-    await move_straight_for_degrees(port.F, port.E, 200, 550)
+    await move_straight_for_degrees(port.F, port.E, 225, 550)
 
 
-    await motor.run_for_degrees(port.D, 210, 400) #forward
+    await motor.run_for_degrees(port.C, 190, 400) #forward
 
 
     await motor.run_for_degrees(port.F, -250, 400) #forward
 
     await motor_pair.move_for_degrees(motor_pair.PAIR_1, -200, 0, velocity=400)
 
+    await motor_pair.move_tank_for_degrees(motor_pair.PAIR_1, 117, 0, 600)
+
+    await motor_pair.move_for_degrees(motor_pair.PAIR_1, -1750, 0, velocity=400)
 
 
 
@@ -135,6 +138,3 @@ async def main():
 
 
 
-
-
-runloop.run(main())
