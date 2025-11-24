@@ -61,12 +61,12 @@ async def main():
 
     # Towards mission (straight using gyro)
     await move_straight_for_degrees(port.F, port.E, 1070, 567)
-    #arm down 
-    await motor.run_for_degrees(port.D, 300, 300)
+    #arm down
+    await motor.run_for_degrees(port.C, 280, 300)
     #move backward to clear the sand
     await move_straight_for_degrees(port.F, port.E, 300, -400)
     #arm up
-    await motor.run_for_degrees(port.D, 300, -400)
+    await motor.run_for_degrees(port.C, 300, -400)
     #turn left
     await motor_pair.move_tank_for_degrees(motor_pair.PAIR_1, 180, 0, 1000)
     #move forward
@@ -79,8 +79,9 @@ async def main():
 
     await motor_pair.move_tank_for_degrees(motor_pair.PAIR_1, 300, 0, 1000)
     #move backward
-    await move_straight_for_degrees(port.F, port.E, 1500, -1000)
-    
+    await move_straight_for_degrees(port.F, port.E, 1000, -1000)
+    await motor_pair.move_tank_for_degrees(motor_pair.PAIR_1, 300, 0, 1000)
+    await move_straight_for_degrees(port.F, port.E, 1000, -1000)
 
 
 
@@ -89,7 +90,12 @@ async def main():
 
 
 
-   
+
+
+
+
+
+
 
 # Run the main routine
 runloop.run(main())
