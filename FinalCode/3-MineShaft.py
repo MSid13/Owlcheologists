@@ -28,7 +28,7 @@ async def move_straight_for_degrees(
     target_angle = 0
 
     # Proportional gain for correction
-    Kp = 0.1  # Adjust if needed for better correction
+    Kp = 0.1# Adjust if needed for better correction
 
     # Loop until desired degrees reached
     while abs(motor.relative_position(left_motor)) < abs(degrees):
@@ -61,7 +61,7 @@ async def main():
     # Pair motors
     motor_pair.pair(motor_pair.PAIR_1, port.F, port.E)
     # Ensure arm is in the right position to pick up red thing (FIRST ARM DOWN)
-    await motor.run_for_degrees(port.D, -134, 200)
+    await motor.run_for_degrees(port.D, -130, 200)
 
     # Towards mission (straight using gyro)
     await move_straight_for_degrees(port.F, port.E, 1190, 400)
@@ -91,25 +91,25 @@ async def main():
     await move_straight_for_degrees(port.F, port.E, 300, -200)
 
     # Arm up TO DROP RED
-    await motor.run_for_degrees(port.D, 140, 350)
+    await motor.run_for_degrees(port.D, 140, 800)
 
     # Turn right toward Mineshaft Explorer
     await motor_pair.move_tank_for_degrees(motor_pair.PAIR_1, -100, 0, 1000)
 
     # Move forward toward Mineshaft Explorer (straight using gyro)
-    await move_straight_for_degrees(port.F, port.E, 850, 400)
+    await move_straight_for_degrees(port.F, port.E, 810, 400)
 
     # Move arm towards the floor (ARM MOVEMENT ##3)
-    await motor.run_for_degrees(port.D, -170, 250)
+    await motor.run_for_degrees(port.D, -150, 250)
 
     # Move right
     await motor_pair.move_tank_for_degrees(motor_pair.PAIR_1, -190, 0, 1000)
 
     # Move straight (straight using gyro)
-    await move_straight_for_degrees(port.F, port.E, 460, 400)
+    await move_straight_for_degrees(port.F, port.E, 500, 400)
 
     # Move arm up to complete mission
-    await motor.run_for_degrees(port.D, 85, 25)
+    await motor.run_for_degrees(port.D, 90, 25)
 
     await runloop.sleep_ms(500)
 
