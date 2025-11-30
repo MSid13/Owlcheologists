@@ -110,17 +110,17 @@ async def main():
     await motor.run_for_degrees(port.D, -70, 300) #forward
 
     await motor.run_for_degrees(port.D, 70, 300)
-    
-    await motor.run_for_degrees(port.D, -70, 300) #forward
-
-    await motor.run_for_degrees(port.D, 70, 300)
 
     await motor.run_for_degrees(port.D, -70, 300) #forward
 
     await motor.run_for_degrees(port.D, 70, 300)
 
+    await motor.run_for_degrees(port.D, -70, 300) #forward
 
-    await motor_pair.move_for_degrees(motor_pair.PAIR_1, 200, 0, velocity=550)
+    await motor.run_for_degrees(port.D, 70, 300)
+
+
+    await motor_pair.move_for_degrees(motor_pair.PAIR_1, 230, 0, velocity=550)
 
 
 
