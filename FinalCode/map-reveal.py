@@ -68,15 +68,15 @@ async def main():
     await motor.run_for_degrees(port.D, -170, 250)
     #move forward and push topsoil
     await move_straight_for_degrees(port.F, port.E, 340, 600)
+    #move backward a bit
+    await move_straight_for_degrees(port.F, port.E, 60, -400)
 
-    await motor.run_for_degrees(port.C, -170, 250)
-    await motor.run_for_degrees(port.D, 170, 250)
-
-
-    await move_straight_for_degrees(port.F, port.E, 340, -400)
-
+    #arm up to collect one of the topsoil
+    await motor.run_for_degrees(port.C, -100, 100)
+    await move_straight_for_degrees(port.F, port.E, 300, -600)
+    #await motor.run_for_degrees(port.D, 170, 100)
     await motor_pair.move_tank_for_degrees(motor_pair.PAIR_1, -260, 0, 1000)
-    await move_straight_for_degrees(port.F, port.E, 1500, -800)
+    await move_straight_for_degrees(port.F, port.E, 1500, -1000)
 
 
 # Run the main routine
