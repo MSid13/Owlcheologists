@@ -7,9 +7,11 @@ from hub import motion_sensor
 
 notUseGyro = False
 
-# Custom function to move straight using gyro correction
-async def move_straight_for_degrees(left_motor: int, right_motor: int, degrees: int, speed: int) -> None:
 
+# Custom function to move straight using gyro correction
+async def move_straight_for_degrees(
+    left_motor: int, right_motor: int, degrees: int, speed: int
+) -> None:
 
     if notUseGyro:
         await motor_pair.move_for_degrees(motor_pair.PAIR_1, degrees, 0, velocity=speed)
@@ -26,7 +28,7 @@ async def move_straight_for_degrees(left_motor: int, right_motor: int, degrees: 
     target_angle = 0
 
     # Proportional gain for correction
-    Kp = 0.1# Adjust if needed for better correction
+    Kp = 0.1  # Adjust if needed for better correction
 
     # Loop until desired degrees reached
     while abs(motor.relative_position(left_motor)) < abs(degrees):
@@ -55,7 +57,7 @@ async def move_straight_for_degrees(left_motor: int, right_motor: int, degrees: 
 
 # Main routine
 async def main():
-    
+
     # Pair motors
     motor_pair.pair(motor_pair.PAIR_1, port.F, port.E)
     # Ensure arm is in the right position to pick up red thing (FIRST ARM DOWN)
@@ -70,22 +72,20 @@ async def main():
     await move_straight_for_degrees(port.F, port.E, 300, -400)
     await runloop.sleep_ms(500)
 
-
     # Arm up
     await motor.run_for_degrees(port.D, 20, 180)
     await runloop.sleep_ms(500)
-    #move forward
+    # move forward
     await move_straight_for_degrees(port.F, port.E, 120, 400)
-    #Go forward
+    # Go forward
     # await move_straight_for_degrees(port.F, port.E, 10, -500)
 
-    # Arm down to collect red 
+    # Arm down to collect red
     await motor.run_for_degrees(port.D, -35, 100)
     await runloop.sleep_ms(500)
 
     # Arm up
     await motor.run_for_degrees(port.D, 50, 180)
-
 
     # Go back more (straight using gyro)
     await move_straight_for_degrees(port.F, port.E, 300, -200)
@@ -113,12 +113,10 @@ async def main():
 
     await runloop.sleep_ms(500)
 
-# RETURNING TO HOME
+    # RETURNING TO HOME
 
-    
     # Turn left a bit
     # await motor_pair.move_tank_for_degrees(motor_pair.PAIR_1, 100, 0, 1000)
-
 
     # Move backward
     await move_straight_for_degrees(port.F, port.E, 200, -1000)
@@ -126,7 +124,7 @@ async def main():
     # Turn left
     await motor_pair.move_tank_for_degrees(motor_pair.PAIR_1, 180, 0, 1000)
 
-    # Move backward at a high velocity. 
+    # Move backward at a high velocity.
     await move_straight_for_degrees(port.F, port.E, 1500, -1000)
 
 

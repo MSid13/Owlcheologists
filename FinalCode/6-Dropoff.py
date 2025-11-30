@@ -7,9 +7,11 @@ from hub import motion_sensor
 
 notUseGyro = False
 
-# Custom function to move straight using gyro correction
-async def move_straight_for_degrees(left_motor: int, right_motor: int, degrees: int, speed: int) -> None:
 
+# Custom function to move straight using gyro correction
+async def move_straight_for_degrees(
+    left_motor: int, right_motor: int, degrees: int, speed: int
+) -> None:
 
     if notUseGyro:
         await motor_pair.move_for_degrees(motor_pair.PAIR_1, degrees, 0, velocity=speed)
@@ -26,7 +28,7 @@ async def move_straight_for_degrees(left_motor: int, right_motor: int, degrees: 
     target_angle = 0
 
     # Proportional gain for correction
-    Kp = 0.1# Adjust if needed for better correction
+    Kp = 0.1  # Adjust if needed for better correction
 
     # Loop until desired degrees reached
     while abs(motor.relative_position(left_motor)) < abs(degrees):
@@ -60,13 +62,6 @@ async def main():
     motor_pair.pair(motor_pair.PAIR_1, port.F, port.E)
 
     await move_straight_for_degrees(port.F, port.E, 1000, 567)
-
-
-
-
-
-
-
 
 
 # Run the main routine

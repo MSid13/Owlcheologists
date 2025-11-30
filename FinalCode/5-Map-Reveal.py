@@ -7,9 +7,11 @@ from hub import motion_sensor
 
 notUseGyro = False
 
-# Custom function to move straight using gyro correction
-async def move_straight_for_degrees(left_motor: int, right_motor: int, degrees: int, speed: int) -> None:
 
+# Custom function to move straight using gyro correction
+async def move_straight_for_degrees(
+    left_motor: int, right_motor: int, degrees: int, speed: int
+) -> None:
 
     if notUseGyro:
         await motor_pair.move_for_degrees(motor_pair.PAIR_1, degrees, 0, velocity=speed)
@@ -26,7 +28,7 @@ async def move_straight_for_degrees(left_motor: int, right_motor: int, degrees: 
     target_angle = 0
 
     # Proportional gain for correction
-    Kp = 0.1# Adjust if needed for better correction
+    Kp = 0.1  # Adjust if needed for better correction
 
     # Loop until desired degrees reached
     while abs(motor.relative_position(left_motor)) < abs(degrees):
@@ -64,17 +66,17 @@ async def main():
 
     # Turn left to align with mission
     await motor_pair.move_tank_for_degrees(motor_pair.PAIR_1, 180, 0, 1000)
-    #arm down
+    # arm down
     await motor.run_for_degrees(port.D, -170, 250)
-    #move forward and push topsoil
+    # move forward and push topsoil
     await move_straight_for_degrees(port.F, port.E, 340, 600)
-    #move backward a bit
+    # move backward a bit
     await move_straight_for_degrees(port.F, port.E, 60, -400)
 
-    #arm up to collect one of the topsoil
+    # arm up to collect one of the topsoil
     await motor.run_for_degrees(port.C, -100, 100)
     await move_straight_for_degrees(port.F, port.E, 300, -600)
-    #await motor.run_for_degrees(port.D, 170, 100)
+    # await motor.run_for_degrees(port.D, 170, 100)
     await motor_pair.move_tank_for_degrees(motor_pair.PAIR_1, -260, 0, 1000)
     await move_straight_for_degrees(port.F, port.E, 1500, -1000)
 
