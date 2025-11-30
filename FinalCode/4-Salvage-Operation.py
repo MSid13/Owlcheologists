@@ -1,3 +1,4 @@
+
 # Import necessary modules from the Hub SDK
 from hub import light_matrix, port
 import runloop
@@ -28,7 +29,7 @@ async def move_straight_for_degrees(
     target_angle = 0
 
     # Proportional gain for correction
-    Kp = 0.1  # Adjust if needed for better correction
+    Kp = 0.1# Adjust if needed for better correction
 
     # Loop until desired degrees reached
     while abs(motor.relative_position(left_motor)) < abs(degrees):
@@ -77,12 +78,12 @@ async def main():
     await motor_pair.move_tank_for_degrees(motor_pair.PAIR_1, -155, 0, 1000)
     # move forward
     await move_straight_for_degrees(port.F, port.E, 400, 800)
-    await runloop.sleep_ms(500)
+    # await runloop.sleep_ms(500)
     await move_straight_for_degrees(port.F, port.E, 350, 800)
 
     await motor_pair.move_tank_for_degrees(motor_pair.PAIR_1, 300, 0, 1000)
     # move backward
-    await move_straight_for_degrees(port.F, port.E, 1000, -1000)
+    await move_straight_for_degrees(port.F, port.E, 1500, -1000)
     # await motor_pair.move_tank_for_degrees(motor_pair.PAIR_1, 300, 0, 1000)
     # await move_straight_for_degrees(port.F, port.E, 1000, -1000)
 
