@@ -61,7 +61,7 @@ async def main():
     # Pair motors
     motor_pair.pair(motor_pair.PAIR_1, port.F, port.E)
     # Ensure arm is in the right position to pick up red thing (FIRST ARM DOWN)
-    await motor.run_for_degrees(port.D, -130, 200)
+    await motor.run_for_degrees(port.D, -135, 100)
 
     # Towards mission (straight using gyro)
     await move_straight_for_degrees(port.F, port.E, 1190, 400)
@@ -94,7 +94,7 @@ async def main():
     await motor.run_for_degrees(port.D, 140, 800)
 
     # Turn right toward Mineshaft Explorer
-    await motor_pair.move_tank_for_degrees(motor_pair.PAIR_1, -100, 0, 1000)
+    await motor_pair.move_tank_for_degrees(motor_pair.PAIR_1, -110, 0, 1000)
 
     # Move forward toward Mineshaft Explorer (straight using gyro)
     await move_straight_for_degrees(port.F, port.E, 810, 400)
@@ -106,7 +106,7 @@ async def main():
     await motor_pair.move_tank_for_degrees(motor_pair.PAIR_1, -190, 0, 1000)
 
     # Move straight (straight using gyro)
-    await move_straight_for_degrees(port.F, port.E, 500, 400)
+    await move_straight_for_degrees(port.F, port.E, 520, 400)
 
     # Move arm up to complete mission
     await motor.run_for_degrees(port.D, 90, 25)
