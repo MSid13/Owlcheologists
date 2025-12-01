@@ -45,11 +45,11 @@ async def move_pair_tank_backward(left_speed: int, right_speed: int, degrees: in
     await motor_pair.move_tank_for_degrees(motor_pair.PAIR_1, -left_speed, -right_speed, degrees)
 
 
-async def move_straight_for_degrees(left_motor: int, right_motor: int, degrees: int, speed: int) -> None:
+async def move_straight_for_degrees(degrees: int, speed: int) -> None:
     # motor_pair.pair(motor_pair.PAIR_1, left_motor, right_motor)
 
-    motor.reset_relative_position(left_motor, 0)
-    motor.reset_relative_position(right_motor, 0)
+    motor.reset_relative_position(port.F, 0)
+    motor.reset_relative_position(port.E, 0)
     # Reset the yaw angle to zero and wait for stabilization
     motion_sensor.reset_yaw(0)
     # await runloop.until(motion_sensor.stable)
@@ -62,7 +62,7 @@ async def move_straight_for_degrees(left_motor: int, right_motor: int, degrees: 
 
     # Loop to maintain straight movement
 
-    while (abs(motor.relative_position(left_motor))) < abs(degrees):
+    while (abs(motor.relative_position(port.F))) < abs(degrees):
         # Get the current yaw angle
         current_angle = motion_sensor.tilt_angles()[0]
         # Calculate the error
@@ -84,14 +84,14 @@ async def move_straight_for_degrees(left_motor: int, right_motor: int, degrees: 
 
 
 async def main():
-    right_motor_port = port.C# MAkeing sure that we do not get confused with Ports :)
-    left_motor_port = port.D
-    motor_pair.pair(motor_pair.PAIR_1, port.F, port.E)# pairing motors
+    left_motor = port.F
+    right_motor = port.E
+    motor_pair.pair(motor_pair.PAIR_1, left_motor, right_motor)# pairing motors
     # left side second black line from the left
     await move_pair_backward(5, 0, 700)# alignment by pusing backwards
 
     # move forward towards silo
-    await move_straight_for_degrees(port.F, port.E, 907, 600)# Go to silo
+    await move_straight_for_degrees(907, 600)  # Go to silo
 
     # move arm thrice to take the gears out of the silo
     await move_motor_forward(170, 1000)# forward to hit lever
@@ -121,9 +121,9 @@ async def main():
     await move_pair_tank_forward(270, 0, 600)# first turn to turn toward mission
     await move_pair_forward(400, 0, 400)# go forward to the mission
     await move_pair_tank_forward(70, 0, 600)# second turn to turn toward mission
-    await move_pair_backward(200, 0, 500)# push back to complete mission
-    await move_straight_for_degrees(port.F, port.E, 450, 550)# go forward to be able to turn to do whats on sale
-    await move_pair_tank_forward(360, 0, 500)# turn to whats on sale
+    await move_pair_backward(200, 0, 500)  # push back to complete mission
+    await move_straight_for_degrees(450, 550)  # go forward to be able to turn to do whats on sale
+    await move_pair_tank_forward(360, 0, 500)  # turn to whats on sale
 
     await move_motor_forward(160, 1000)# tip the scales
 
