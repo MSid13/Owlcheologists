@@ -8,77 +8,108 @@ from hub import motion_sensor
 notUseGyro = False
 
 
-# Custom function to move straight using gyro correction
-async def move_straight_for_degrees(
-    left_motor: int, right_motor: int, degrees: int, speed: int
-) -> None:
+async def move_motor_port_d_forward(degrees: int, speed: int) -> None:
+    """Move motor on port.D forward - takes positive value"""
+    await motor.run_for_degrees(port.D, degrees, speed)
 
+
+async def move_motor_port_d_backward(degrees: int, speed: int) -> None:
+    """Move motor on port.D backward - takes positive value"""
+    await motor.run_for_degrees(port.D, -degrees, speed)
+
+
+async def move_motor_port_c_forward(degrees: int, speed: int) -> None:
+    """Move motor on port.C forward - takes positive value"""
+    await motor.run_for_degrees(port.C, degrees, speed)
+
+
+async def move_motor_port_c_backward(degrees: int, speed: int) -> None:
+    """Move motor on port.C backward - takes positive value"""
+    await motor.run_for_degrees(port.C, -degrees, speed)
+
+
+async def move_pair_tank_forward(left_speed: int, right_speed: int, degrees: int) -> None:
+    """Move motor pair PAIR_1 in tank mode forward for specified degrees"""
+    await motor_pair.move_tank_for_degrees(motor_pair.PAIR_1, left_speed, right_speed, degrees)
+
+
+async def move_pair_tank_backward(left_speed: int, right_speed: int, degrees: int) -> None:
+    """Move motor pair PAIR_1 in tank mode backward - takes positive values"""
+    await motor_pair.move_tank_for_degrees(motor_pair.PAIR_1, -left_speed, -right_speed, degrees)
+
+
+async def move_straight_forward(degrees: int, speed: int) -> None:
+    """Move straight forward using gyro correction - takes positive values"""
     if notUseGyro:
         await motor_pair.move_for_degrees(motor_pair.PAIR_1, degrees, 0, velocity=speed)
         return
 
-    # Reset motor positions
-    motor.reset_relative_position(left_motor, 0)
-    motor.reset_relative_position(right_motor, 0)
-
-    # Reset yaw angle to zero
+    motor.reset_relative_position(port.F, 0)
+    motor.reset_relative_position(port.E, 0)
     motion_sensor.reset_yaw(0)
-
-    # Target angle for straight movement
     target_angle = 0
+    Kp = 0.1
 
-    # Proportional gain for correction
-    Kp = 0.1  # Adjust if needed for better correction
-
-    # Loop until desired degrees reached
-    while abs(motor.relative_position(left_motor)) < abs(degrees):
-        # Current yaw angle
+    while abs(motor.relative_position(port.F)) < abs(degrees):
         current_angle = motion_sensor.tilt_angles()[0]
-
-        # Error calculation
         error = target_angle - current_angle
-
-        # Correction based on error
         correction = int(Kp * error)
-
-        # Adjust motor speeds
         left_speed = speed + correction
         right_speed = speed - correction
-
-        # Apply movement
         motor_pair.move_tank(motor_pair.PAIR_1, left_speed, right_speed)
-
-        # Small delay for stability
         await runloop.sleep_ms(10)
+    motor_pair.stop(motor_pair.PAIR_1)
 
-    # Stop motors after movement
+
+async def move_straight_backward(degrees: int, speed: int) -> None:
+    """Move straight backward using gyro correction - takes positive values"""
+    if notUseGyro:
+        await motor_pair.move_for_degrees(motor_pair.PAIR_1, -degrees, 0, velocity=speed)
+        return
+
+    motor.reset_relative_position(port.F, 0)
+    motor.reset_relative_position(port.E, 0)
+    motion_sensor.reset_yaw(0)
+    target_angle = 0
+    Kp = 0.1
+
+    while abs(motor.relative_position(port.F)) < abs(degrees):
+        current_angle = motion_sensor.tilt_angles()[0]
+        error = target_angle - current_angle
+        correction = int(Kp * error)
+        left_speed = -speed + correction
+        right_speed = -speed - correction
+        motor_pair.move_tank(motor_pair.PAIR_1, left_speed, right_speed)
+        await runloop.sleep_ms(10)
     motor_pair.stop(motor_pair.PAIR_1)
 
 
 # Main routine
 async def main():
 
+    left_motor = port.F
+    right_motor = port.E
     # Pair motors
-    motor_pair.pair(motor_pair.PAIR_1, port.F, port.E)
+    motor_pair.pair(motor_pair.PAIR_1, left_motor, right_motor)
 
     # Towards mission 1 (straight using gyro)
-    await move_straight_for_degrees(port.F, port.E, 1500, 400)
+    await move_straight_forward(1500, 400)
 
     # Turn left to align with mission
-    await motor_pair.move_tank_for_degrees(motor_pair.PAIR_1, 180, 0, 1000)
+    await move_pair_tank_forward(180, 0, 1000)
     # arm down
-    await motor.run_for_degrees(port.D, -170, 250)
+    await move_motor_port_d_backward(170, 250)
     # move forward and push topsoil
-    await move_straight_for_degrees(port.F, port.E, 340, 600)
+    await move_straight_forward(340, 600)
     # move backward a bit
-    await move_straight_for_degrees(port.F, port.E, 60, -400)
+    await move_straight_backward(60, 400)
 
     # arm up to collect one of the topsoil
-    await motor.run_for_degrees(port.C, -100, 100)
-    await move_straight_for_degrees(port.F, port.E, 300, -600)
-    # await motor.run_for_degrees(port.D, 170, 100)
-    await motor_pair.move_tank_for_degrees(motor_pair.PAIR_1, -260, 0, 1000)
-    await move_straight_for_degrees(port.F, port.E, 1500, -1000)
+    await move_motor_port_c_backward(100, 100)
+    await move_straight_backward(300, 600)
+    # await move_motor_port_d_forward(170, 100)
+    await move_pair_tank_backward(240, 0, 1000)
+    await move_straight_backward(1500, 1000)
 
 
 # Run the main routine
