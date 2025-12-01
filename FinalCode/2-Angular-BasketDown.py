@@ -54,13 +54,11 @@ async def move_pair_tank_backward(left_speed: int, right_speed: int, degrees: in
     await motor_pair.move_tank_for_degrees(motor_pair.PAIR_1, -left_speed, -right_speed, degrees)
 
 
-async def move_straight_for_degrees(
-    left_motor: int, right_motor: int, degrees: int, speed: int
-) -> None:
+async def move_straight_for_degrees(degrees: int, speed: int) -> None:
     # motor_pair.pair(motor_pair.PAIR_1, left_motor, right_motor)
 
-    motor.reset_relative_position(left_motor, 0)
-    motor.reset_relative_position(right_motor, 0)
+    motor.reset_relative_position(port.F, 0)
+    motor.reset_relative_position(port.E, 0)
     # Reset the yaw angle to zero and wait for stabilization
     motion_sensor.reset_yaw(0)
     # await runloop.until(motion_sensor.stable)
@@ -73,7 +71,7 @@ async def move_straight_for_degrees(
 
     # Loop to maintain straight movement
 
-    while (abs(motor.relative_position(left_motor))) < abs(degrees):
+    while (abs(motor.relative_position(port.F))) < abs(degrees):
         # Get the current yaw angle
         current_angle = motion_sensor.tilt_angles()[0]
         # Calculate the error
@@ -95,9 +93,11 @@ async def move_straight_for_degrees(
 
 
 async def main():
-    motor_pair.pair(motor_pair.PAIR_1, port.F, port.E)
+    left_motor = port.F
+    right_motor = port.E
+    motor_pair.pair(motor_pair.PAIR_1, left_motor, right_motor)
 
-    await move_straight_for_degrees(port.F, port.E, 1800, 600)
+    await move_straight_for_degrees(1800, 600)
 
     # ############################################!111111111111111111111111111111!!!!!!!!!!!!!!!!!!!!!!!!
 
@@ -117,7 +117,7 @@ async def main():
 
     await move_pair_tank_backward(50, 0, 600)
 
-    await move_straight_for_degrees(port.F, port.E, 235, 550)
+    await move_straight_for_degrees(235, 550)
 
     await move_motor_port_c(190, 400)
 
