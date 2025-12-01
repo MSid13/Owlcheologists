@@ -5,46 +5,6 @@ import runloop
 import motor_pair
 import motor
 from hub import motion_sensor
-
-
-def forward(number):
-    return number
-
-
-def backward(number):
-    return -number
-
-
-async def move_motor_forward(degrees: int, speed: int) -> None:
-    """Move motor on port.C forward for specified degrees at given speed"""
-    await motor.run_for_degrees(port.C, degrees, speed)
-
-
-async def move_motor_backward(degrees: int, speed: int) -> None:
-    """Move motor on port.C backward for specified degrees at given speed"""
-    await motor.run_for_degrees(port.C, -degrees, speed)
-
-
-async def move_pair_forward(degrees: int, steering: int, velocity: int) -> None:
-    """Move motor pair PAIR_1 forward for specified degrees"""
-    await motor_pair.move_for_degrees(motor_pair.PAIR_1, degrees, steering, velocity=velocity)
-
-
-async def move_pair_backward(degrees: int, steering: int, velocity: int) -> None:
-    """Move motor pair PAIR_1 backward for specified degrees"""
-    await motor_pair.move_for_degrees(motor_pair.PAIR_1, -degrees, steering, velocity=velocity)
-
-
-async def move_pair_tank_forward(left_speed: int, right_speed: int, degrees: int) -> None:
-    """Move motor pair PAIR_1 in tank mode forward for specified degrees"""
-    await motor_pair.move_tank_for_degrees(motor_pair.PAIR_1, left_speed, right_speed, degrees)
-
-
-async def move_pair_tank_backward(left_speed: int, right_speed: int, degrees: int) -> None:
-    """Move motor pair PAIR_1 in tank mode backward for specified degrees"""
-    await motor_pair.move_tank_for_degrees(motor_pair.PAIR_1, -left_speed, -right_speed, degrees)
-
-
 async def move_straight_for_degrees(degrees: int, speed: int) -> None:
     # motor_pair.pair(motor_pair.PAIR_1, left_motor, right_motor)
 
@@ -83,6 +43,45 @@ async def move_straight_for_degrees(degrees: int, speed: int) -> None:
     ## CODE STARTS HERE
 
 
+def forward(number):
+    return number
+
+
+def backward(number):
+    return -number
+
+
+async def move_motor_forward(degrees: int, speed: int) -> None:
+    """Move motor on port.C forward for specified degrees at given speed"""
+    await motor.run_for_degrees(port.C, degrees, speed)
+
+
+async def move_motor_backward(degrees: int, speed: int) -> None:
+    """Move motor on port.C backward for specified degrees at given speed"""
+    await motor.run_for_degrees(port.C, -degrees, speed)
+
+
+async def move_pair_forward(degrees: int, steering: int, velocity: int) -> None:
+    """Move motor pair PAIR_1 forward for specified degrees"""
+    await move_straight_for_degrees(degrees, velocity)
+
+
+async def move_pair_backward(degrees: int, steering: int, velocity: int) -> None:
+    """Move motor pair PAIR_1 backward for specified degrees"""
+    await move_straight_for_degrees(degrees, -velocity)
+
+
+async def move_pair_tank_forward(left_speed: int, right_speed: int, degrees: int) -> None:
+    """Move motor pair PAIR_1 in tank mode forward for specified degrees"""
+    await motor_pair.move_tank_for_degrees(motor_pair.PAIR_1, left_speed, right_speed, degrees)
+
+
+async def move_pair_tank_backward(left_speed: int, right_speed: int, degrees: int) -> None:
+    """Move motor pair PAIR_1 in tank mode backward for specified degrees"""
+    await motor_pair.move_tank_for_degrees(motor_pair.PAIR_1, -left_speed, -right_speed, degrees)
+
+
+
 async def main():
     left_motor = port.F
     right_motor = port.E
@@ -91,7 +90,7 @@ async def main():
     await move_pair_backward(5, 0, 700)# alignment by pusing backwards
 
     # move forward towards silo
-    await move_straight_for_degrees(907, 600)  # Go to silo
+    await move_straight_for_degrees(907, 600)# Go to silo
 
     # move arm thrice to take the gears out of the silo
     await move_motor_forward(170, 1000)# forward to hit lever
@@ -110,7 +109,7 @@ async def main():
 
     await move_motor_forward(130, 500)# forward
 
-    await move_pair_tank_forward(35, 0, 250)# turn so the attatchment can do the Forge mission
+    await move_pair_tank_forward(40, 0, 250)# turn so the attatchment can do the Forge mission
 
     # Go to forge
     await move_pair_forward(650, 0, 500)# move forward so the wheelcan hit the stick to let the balls out
@@ -121,9 +120,9 @@ async def main():
     await move_pair_tank_forward(270, 0, 600)# first turn to turn toward mission
     await move_pair_forward(400, 0, 400)# go forward to the mission
     await move_pair_tank_forward(70, 0, 600)# second turn to turn toward mission
-    await move_pair_backward(200, 0, 500)  # push back to complete mission
-    await move_straight_for_degrees(450, 550)  # go forward to be able to turn to do whats on sale
-    await move_pair_tank_forward(360, 0, 500)  # turn to whats on sale
+    await move_pair_backward(200, 0, 500)# push back to complete mission
+    await move_straight_for_degrees(450, 550)# go forward to be able to turn to do whats on sale
+    await move_pair_tank_forward(365, 0, 500)# turn to whats on sale
 
     await move_motor_forward(160, 1000)# tip the scales
 
