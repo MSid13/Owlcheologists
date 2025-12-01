@@ -59,7 +59,7 @@ async def move_straight_for_degrees(
     target_angle = 0
 
     # Define the proportional gain for correction
-    Kp = 0.08  # 1# Adjust this value based on your robot's behavior
+    Kp = 0.08# 1# Adjust this value based on your robot's behavior
 
     # Loop to maintain straight movement
 
@@ -67,7 +67,7 @@ async def move_straight_for_degrees(
         # Get the current yaw angle
         current_angle = motion_sensor.tilt_angles()[0]
         # Calculate the error
-        error = target_angle - current_angle  # Corrected to target - current
+        error = target_angle - current_angle# Corrected to target - current
         # Calculate the correction
         correction = int(Kp * error)
         # Adjust the motor speeds to apply correction for straight movement
@@ -96,8 +96,8 @@ async def main():
     await move_pair_backward(230, 0, 400)
 
     await move_motor_forward(80, 300)
-    
-    for i in range(6):
+
+    for i in range(7):
         await move_motor_backward(70, 300)
         await move_motor_forward(70, 300)
 
@@ -107,9 +107,9 @@ async def main():
 
     await move_pair_forward(200, 0, 650)
 
-    await move_pair_tank_forward(70, 0, 600)
+    await move_pair_tank_forward(140, 0, 600)
 
-    await move_pair_forward(1400, 0, 650)
+    await move_pair_forward(1800, 0, 800)
 
 
 runloop.run(main())
