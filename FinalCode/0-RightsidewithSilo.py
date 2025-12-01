@@ -63,19 +63,19 @@ async def main():
     await move_straight_for_degrees(port.F, port.E, 907, 600)  # Go to silo
 
     # move arm thrice to take the gears out of the silo
-    await motor.run_for_degrees(right_motor_port, 170, 10000)  # forward to hit lever
-    await motor.run_for_degrees(right_motor_port, -165, 10000)  # backward
+    await motor.run_for_degrees(right_motor_port, 170, 1000)  # forward to hit lever
+    await motor.run_for_degrees(right_motor_port, -165, 1000)  # backward
     await motor_pair.move_tank_for_degrees(motor_pair.PAIR_1, -5, 0, 600)  # When the attactchment hits, turns bot- conteracts turn
-    await motor.run_for_degrees(right_motor_port, 165, 10000)  # forward
+    await motor.run_for_degrees(right_motor_port, 165, 1000)  # forward
     await motor_pair.move_tank_for_degrees(motor_pair.PAIR_1, -5, 0, 600)  # When the attactchment hits, turns bot- conteracts turn
-    await motor.run_for_degrees(right_motor_port, -165, 10000)  # backward
-    await motor.run_for_degrees(right_motor_port, 165, 10000)  # forward
-    await motor.run_for_degrees(right_motor_port, -165, 10000)  # backward
+    await motor.run_for_degrees(right_motor_port, -165, 1000)  # backward
+    await motor.run_for_degrees(right_motor_port, 165, 1000)  # forward
+    await motor.run_for_degrees(right_motor_port, -165, 1000)  # backward
 
     await motor_pair.move_tank_for_degrees(motor_pair.PAIR_1, -5, 0, 600)  # When the attactchment hits, turns bot- conteracts turn
-    await motor.run_for_degrees(right_motor_port, 165, 10000)  # forward
+    await motor.run_for_degrees(right_motor_port, 165, 1000)  # forward
 
-    await motor.run_for_degrees(right_motor_port, -165, 10000)  # forward
+    await motor.run_for_degrees(right_motor_port, -165, 1000)  # forward
 
     await motor.run_for_degrees(right_motor_port, 130, 500)  # forward
 
@@ -94,7 +94,7 @@ async def main():
     await move_straight_for_degrees(port.F, port.E, 450, 550)  # go forward to be able to turn to do whats on sale
     await motor_pair.move_tank_for_degrees(motor_pair.PAIR_1, 360, 0, 500)  # turn to whats on sale
 
-    await motor.run_for_degrees(right_motor_port, 160, 10000)  # tip the scales
+    await motor.run_for_degrees(right_motor_port, 160, 1000)  # tip the scales
 
     # move back
     await motor_pair.move_for_degrees(motor_pair.PAIR_1, -60, 0, velocity=400)  # go back out of tip the scales
