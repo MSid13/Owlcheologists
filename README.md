@@ -17,4 +17,4 @@ This code is provided **AS-IS** with **no warranty** whatsoever. Any unauthorize
 
 ***
 
-This version is more formal, using terms like "expressly prohibited," and explicitly lists the four key actions (copying, redistributing, creating derivatives, and using) that require permission, ensuring your intent is legally clear.
+Thank you for taking a look at our code!
