@@ -5,6 +5,46 @@ import runloop
 import motor_pair
 import motor
 from hub import motion_sensor
+
+
+def forward(number):
+    return number
+
+
+def backward(number):
+    return -number
+
+
+async def move_motor_forward(degrees: int, speed: int) -> None:
+    """Move motor on port.C forward for specified degrees at given speed"""
+    await motor.run_for_degrees(port.C, degrees, speed)
+
+
+async def move_motor_backward(degrees: int, speed: int) -> None:
+    """Move motor on port.C backward for specified degrees at given speed"""
+    await motor.run_for_degrees(port.C, -degrees, speed)
+
+
+async def move_pair_forward(degrees: int, steering: int, velocity: int) -> None:
+    """Move motor pair PAIR_1 forward for specified degrees"""
+    await motor_pair.move_for_degrees(motor_pair.PAIR_1, degrees, steering, velocity=velocity)
+
+
+async def move_pair_backward(degrees: int, steering: int, velocity: int) -> None:
+    """Move motor pair PAIR_1 backward for specified degrees"""
+    await motor_pair.move_for_degrees(motor_pair.PAIR_1, -degrees, steering, velocity=velocity)
+
+
+async def move_pair_tank_forward(left_speed: int, right_speed: int, degrees: int) -> None:
+    """Move motor pair PAIR_1 in tank mode forward for specified degrees"""
+    await motor_pair.move_tank_for_degrees(motor_pair.PAIR_1, left_speed, right_speed, degrees)
+
+
+async def move_pair_tank_backward(left_speed: int, right_speed: int, degrees: int) -> None:
+    """Move motor pair PAIR_1 in tank mode backward for specified degrees"""
+    await motor_pair.move_tank_for_degrees(motor_pair.PAIR_1, -left_speed, -right_speed, degrees)
+
+
 async def move_straight_for_degrees(degrees: int, speed: int) -> None:
     # motor_pair.pair(motor_pair.PAIR_1, left_motor, right_motor)
 
@@ -41,45 +81,6 @@ async def move_straight_for_degrees(degrees: int, speed: int) -> None:
 
     # You run the normal move_for_degrees function.
     ## CODE STARTS HERE
-
-
-def forward(number):
-    return number
-
-
-def backward(number):
-    return -number
-
-
-async def move_motor_forward(degrees: int, speed: int) -> None:
-    """Move motor on port.C forward for specified degrees at given speed"""
-    await motor.run_for_degrees(port.C, degrees, speed)
-
-
-async def move_motor_backward(degrees: int, speed: int) -> None:
-    """Move motor on port.C backward for specified degrees at given speed"""
-    await motor.run_for_degrees(port.C, -degrees, speed)
-
-
-async def move_pair_forward(degrees: int, steering: int, velocity: int) -> None:
-    """Move motor pair PAIR_1 forward for specified degrees"""
-    await move_straight_for_degrees(degrees, velocity)
-
-
-async def move_pair_backward(degrees: int, steering: int, velocity: int) -> None:
-    """Move motor pair PAIR_1 backward for specified degrees"""
-    await move_straight_for_degrees(degrees, -velocity)
-
-
-async def move_pair_tank_forward(left_speed: int, right_speed: int, degrees: int) -> None:
-    """Move motor pair PAIR_1 in tank mode forward for specified degrees"""
-    await motor_pair.move_tank_for_degrees(motor_pair.PAIR_1, left_speed, right_speed, degrees)
-
-
-async def move_pair_tank_backward(left_speed: int, right_speed: int, degrees: int) -> None:
-    """Move motor pair PAIR_1 in tank mode backward for specified degrees"""
-    await motor_pair.move_tank_for_degrees(motor_pair.PAIR_1, -left_speed, -right_speed, degrees)
-
 
 
 async def main():
@@ -122,7 +123,7 @@ async def main():
     await move_pair_tank_forward(70, 0, 600)# second turn to turn toward mission
     await move_pair_backward(200, 0, 500)# push back to complete mission
     await move_straight_for_degrees(450, 550)# go forward to be able to turn to do whats on sale
-    await move_pair_tank_forward(365, 0, 500)# turn to whats on sale
+    await move_pair_tank_forward(360, 0, 500)# turn to whats on sale
 
     await move_motor_forward(160, 1000)# tip the scales
 
