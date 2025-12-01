@@ -36,12 +36,12 @@ async def move_motor_port_c(degrees: int, speed: int) -> None:
 
 async def move_pair_forward(degrees: int, steering: int, velocity: int) -> None:
     """Move motor pair PAIR_1 forward for specified degrees"""
-    await motor_pair.move_for_degrees(motor_pair.PAIR_1, degrees, steering, velocity=velocity)
+    await move_straight_for_degrees(degrees, velocity)
 
 
 async def move_pair_backward(degrees: int, steering: int, velocity: int) -> None:
     """Move motor pair PAIR_1 backward for specified degrees - takes positive value"""
-    await motor_pair.move_for_degrees(motor_pair.PAIR_1, -degrees, steering, velocity=velocity)
+    await move_straight_for_degrees(degrees, -velocity)
 
 
 async def move_pair_tank_forward(left_speed: int, right_speed: int, degrees: int) -> None:
@@ -67,7 +67,7 @@ async def move_straight_for_degrees(degrees: int, speed: int) -> None:
     target_angle = 0
 
     # Define the proportional gain for correction
-    Kp = 0.08  # 1# Adjust this value based on your robot's behavior
+    Kp = 0.08# 1# Adjust this value based on your robot's behavior
 
     # Loop to maintain straight movement
 
@@ -75,7 +75,7 @@ async def move_straight_for_degrees(degrees: int, speed: int) -> None:
         # Get the current yaw angle
         current_angle = motion_sensor.tilt_angles()[0]
         # Calculate the error
-        error = target_angle - current_angle  # Corrected to target - current
+        error = target_angle - current_angle# Corrected to target - current
         # Calculate the correction
         correction = int(Kp * error)
         # Adjust the motor speeds to apply correction for straight movement
@@ -107,17 +107,19 @@ async def main():
 
     await move_motor_forward(80, 300)
 
-    for i in range(14):
+    for i in range(7):
         await move_motor_backward(70, 300)
         await move_motor_forward(70, 300)
 
-    await move_pair_forward(230, 0, 550)
+    await move_motor_backward(70, 300)
+    
+    await move_pair_forward(235, 0, 550)
 
     await move_motor_port_f(360, 400)
 
     await move_pair_tank_backward(50, 0, 600)
 
-    await move_straight_for_degrees(235, 550)
+    await move_straight_for_degrees(220, 550)
 
     await move_motor_port_c(190, 400)
 
@@ -125,9 +127,14 @@ async def main():
 
     await move_pair_backward(200, 0, 400)
 
-    await move_pair_tank_forward(137, 0, 600)
+    await move_pair_tank_forward(140, 0, 600)
 
-    await move_pair_backward(2000, 0, 600)
+    await move_pair_backward(1500, 0, 600)
+
+    await move_pair_tank_backward(50, 0, 600)
+
+    await move_pair_backward(1000, 0, 600)
+
 
 
 runloop.run(main())
