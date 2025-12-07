@@ -90,7 +90,7 @@ async def main():
     await move_pair_backward(5, 0, 700)# alignment by pusing backwards
 
     # move forward towards silo
-    await move_straight_for_degrees(922, 600)# Go to silo
+    await move_straight_for_degrees(917, 600)# Go to silo
 
     # move arm thrice to take the gears out of the silo
     await move_motor_forward(170, 1000)# forward to hit lever
