@@ -33,6 +33,9 @@ async def move_motor_port_c(degrees: int, speed: int) -> None:
     """Move motor on port.C - always takes positive value"""
     await motor.run_for_degrees(port.C, degrees, speed)
 
+async def move_motor_port_e(degrees: int, speed: int) -> None:
+    """Move motor on port.E - always takes positive value"""
+    await motor.run_for_degrees(port.E, degrees, speed)
 
 async def move_pair_forward(degrees: int, steering: int, velocity: int) -> None:
     """Move motor pair PAIR_1 forward for specified degrees"""
@@ -99,7 +102,7 @@ async def main():
 
     await move_straight_for_degrees(1800, 600)
 
-    # ############################################!111111111111111111111111111111!!!!!!!!!!!!!!!!!!!!!!!!
+    ############################################!111111111111111111111111111111!!!!!!!!!!!!!!!!!!!!!!!!
 
     await move_pair_tank_backward(110, 0, 600)
 
@@ -112,10 +115,13 @@ async def main():
         await move_motor_forward(70, 300)
 
     await move_motor_backward(70, 300)
-    
-    await move_pair_forward(235, 0, 550)
+
+    await move_pair_forward(237, 0, 550)
 
     await move_motor_port_f(360, 400)
+
+
+
 
     await move_pair_tank_backward(50, 0, 600)
 
