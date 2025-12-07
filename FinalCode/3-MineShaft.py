@@ -97,7 +97,7 @@ async def main():
     await motor_pair.move_tank_for_degrees(motor_pair.PAIR_1, -110, 0, 1000)
 
     # Move forward toward Mineshaft Explorer (straight using gyro)
-    await move_straight_for_degrees(port.F, port.E, 810, 400)
+    await move_straight_for_degrees(port.F, port.E, 830, 400)
 
     # Move arm towards the floor (ARM MOVEMENT ##3)
     await motor.run_for_degrees(port.D, -150, 250)
