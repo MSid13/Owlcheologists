@@ -90,7 +90,7 @@ async def main():
     await move_pair_backward(5, 0, 700)# alignment by pusing backwards
 
     # move forward towards silo
-    await move_straight_for_degrees(907, 600)# Go to silo
+    await move_straight_for_degrees(922, 600)# Go to silo
 
     # move arm thrice to take the gears out of the silo
     await move_motor_forward(170, 1000)# forward to hit lever
@@ -109,29 +109,32 @@ async def main():
 
     await move_motor_forward(130, 500)# forward
 
-    await move_pair_tank_forward(40, 0, 250)# turn so the attatchment can do the Forge mission
+    await move_pair_tank_forward(42, 0, 250)# turn so the attatchment can do the Forge mission
 
     # Go to forge
-    await move_pair_forward(650, 0, 500)# move forward so the wheelcan hit the stick to let the balls out
+    await move_pair_forward(560, 0, 500)# move forward so the wheelcan hit the stick to let the balls out
 
-    await move_motor_backward(350, 500)# backward arm to make sure it does not get in the way
+    await move_motor_backward(150, 500)# backward arm to make sure it does not get in the way
 
-    await move_pair_backward(140, 0, 700)# go backward to be able to do the
+    await move_pair_backward(100, 0, 700)# go backward to be able to do the
+
+
     await move_pair_tank_forward(260, 0, 600)# first turn to turn toward mission
     await move_pair_forward(400, 0, 400)# go forward to the mission
     await move_pair_tank_forward(70, 0, 600)# second turn to turn toward mission
-    await move_pair_backward(250, 0, 500)# push back to complete mission
+    await move_pair_backward(210, 0, 500)# push back to complete mission
     await move_straight_for_degrees(410, 550)# go forward to be able to turn to do whats on sale
-    await move_pair_tank_forward(365, 0, 500)# turn to whats on sale
+    await move_pair_tank_forward(375, 0, 500)# turn to whats on sale
+    await move_straight_for_degrees(50, 550)# go forward to be able to turn to do whats on sale
 
     await move_motor_forward(160, 1000)# tip the scales
 
     # move back
-    await move_pair_backward(60, 0, 400)# go back out of tip the scales
+    await move_pair_backward(-60, 0, 400)# go back out of tip the scales
     await move_pair_tank_backward(505, 0, 600)# turn towards base
     await move_pair_backward(700, 0, 800)# go to base
 
-    await move_pair_tank_backward(170, 0, 600)# turn towards base
+    await move_pair_tank_backward(100, 0, 600)# turn towards base
     await move_pair_backward(1200, 0, 800)# go to base
 
 
