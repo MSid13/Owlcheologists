@@ -85,11 +85,13 @@ async def move_pair_tank_backward(left_speed: int, right_speed: int, degrees: in
 
 
 async def main():
-    motor_pair.pair(motor_pair.PAIR_1, port.F, port.E)
+    left_motor = port.F
+    right_motor = port.E
+    motor_pair.pair(motor_pair.PAIR_1, left_motor, right_motor)
 
     await move_straight_for_degrees(port.F, port.E, 1800, 600)
 
-    # ############################################!111111111111111111111111111111!!!!!!!!!!!!!!!!!!!!!!!!
+    ############################################!111111111111111111111111111111!!!!!!!!!!!!!!!!!!!!!!!!
 
     await move_pair_tank_backward(110, 0, 600)
 
@@ -101,13 +103,15 @@ async def main():
         await move_motor_backward(70, 300)
         await move_motor_forward(70, 300)
 
+    await move_motor_backward(70, 300)
+    
     await move_pair_forward(400, 0, 550)
 
     await move_pair_tank_forward(100, 0, 600)
 
     await move_pair_forward(200, 0, 650)
 
-    await move_pair_tank_forward(130, 0, 600)
+    await move_pair_tank_forward(145, 0, 600)
 
     await move_pair_forward(1800, 0, 1000)
 
