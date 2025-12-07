@@ -91,16 +91,16 @@ async def main():
     right_motor = port.E
     # Pair motors
     motor_pair.pair(motor_pair.PAIR_1, left_motor, right_motor)
-
+    await move_straight_backward(5, 600)
     # Towards mission 1 (straight using gyro)
     await move_straight_forward(1500, 400)
-
+    await move_motor_port_c_forward(150, 250)
     # Turn left to align with mission
     await move_pair_tank_forward(180, 0, 1000)
     # arm down
     await move_motor_port_d_backward(170, 250)
     # move forward and push topsoil
-    await move_straight_forward(340, 600)
+    await move_straight_forward(360, 600)
     # move backward a bit
     await move_straight_backward(60, 400)
 
@@ -108,7 +108,7 @@ async def main():
     await move_motor_port_c_backward(100, 100)
     await move_straight_backward(300, 600)
     # await move_motor_port_d_forward(170, 100)
-    await move_pair_tank_backward(240, 0, 1000)
+    await move_pair_tank_backward(250, 0, 1000)
     await move_straight_backward(1500, 1000)
 
 
