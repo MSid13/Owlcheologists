@@ -119,7 +119,7 @@ async def main():
     # await motor_pair.move_tank_for_degrees(motor_pair.PAIR_1, 100, 0, 1000)
 
     # Move backward
-    await move_straight_for_degrees(port.F, port.E, 200, -1000)
+    await move_straight_for_degrees(port.F, port.E, 250, -1000)
 
     # Turn left
     await motor_pair.move_tank_for_degrees(motor_pair.PAIR_1, 180, 0, 1000)
