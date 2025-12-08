@@ -109,7 +109,7 @@ async def main():
 
     await move_motor_forward(125, 500)# forward
 
-    await move_pair_tank_forward(40, 0, 250)# turn so the attatchment can do the Forge mission
+    await move_pair_tank_forward(43, 0, 250)# turn so the attatchment can do the Forge mission
 
     # Go to forge
     await move_pair_forward(560, 0, 500)# move forward so the wheelcan hit the stick to let the balls out
