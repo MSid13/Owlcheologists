@@ -123,7 +123,7 @@ async def main():
 
 
 
-    await move_pair_tank_backward(50, 0, 600)
+    await move_pair_tank_backward(60, 0, 600)
 
     await move_straight_for_degrees(220, 550)
 
@@ -133,7 +133,7 @@ async def main():
 
     await move_pair_backward(200, 0, 400)
 
-    await move_pair_tank_forward(140, 0, 600)
+    await move_pair_tank_forward(145, 0, 600)
 
     await move_pair_backward(1500, 0, 600)
 
