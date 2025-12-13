@@ -133,7 +133,7 @@ async def main():
 
     await move_pair_backward(200, 0, 400)
 
-    await move_pair_tank_forward(145, 0, 600)
+    await move_pair_tank_forward(195, 0, 600)
 
     await move_pair_backward(1500, 0, 600)
 
