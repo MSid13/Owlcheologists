@@ -104,8 +104,10 @@ async def main():
     # move backward a bit
     await move_straight_backward(60, 400)
 
+    await move_straight_backward(30, 100)
+
     # arm up to collect one of the topsoil
-    await move_motor_port_c_backward(100, 100)
+    await move_motor_port_c_backward(60, 50)
     await move_straight_backward(300, 600)
     # await move_motor_port_d_forward(170, 100)
     await move_pair_tank_backward(250, 0, 1000)
