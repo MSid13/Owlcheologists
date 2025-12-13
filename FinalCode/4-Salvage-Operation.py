@@ -85,7 +85,7 @@ async def main():
     # Towards mission (straight using gyro)
     await move_straight_forward(1070, 567)
     # arm down
-    await move_motor_port_c_forward(190, 300)
+    await move_motor_port_c_forward(180, 300)
     # move backward to clear the sand
     await move_straight_backward(300, 400)
     # arm up
@@ -93,7 +93,7 @@ async def main():
     # turn left
     await move_pair_tank_forward(180, 0, 1000)
     # move forward
-    await move_straight_forward(275, 400)
+    await move_straight_forward(275, 300)
     # turn right and align with red pushy thing
     await move_pair_tank_backward(155, 0, 1000)
     # move forward
