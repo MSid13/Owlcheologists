@@ -105,19 +105,19 @@ async def main():
 
     await move_straight_for_degrees(1370, 800)# Go to silo
 
-    await move_motor_port_f(232, 400)
+    await move_motor_port_f(237, 400)
 
-    await move_straight_for_degrees(40, 600)# Go to silo
+    await move_straight_for_degrees(50, 600)# Go to silo
 
-    time.sleep_ms(500)
+
 
     await move_motor_port_d(100, 100)
 
-
+    time.sleep_ms(500)
 
     await move_motor_port_d(-120, 30)
 
-    await move_straight_for_degrees(105, -600)# Go to silo
+    await move_straight_for_degrees(110, -600)# Go to silo
 
 
     await move_pair_tank_forward(605, 5, 600)# When
@@ -129,7 +129,7 @@ async def main():
 
     await move_pair_tank_forward(100, 0, 800)# When
 
-    await move_motor_port_f(240, 400)
+    await move_motor_port_f(250, 400)
 
 
     await move_straight_for_degrees(1700, -1000)# Go to silo
