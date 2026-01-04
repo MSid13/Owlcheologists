@@ -96,7 +96,7 @@ async def main():
     motor_pair.pair(motor_pair.PAIR_1, port.F, port.E)
     left_motor = port.F
     right_motor = port.E
-    # left side second black line from the left
+    # left side second black line from the left: ALINGMENT POINT
 
     # move forward towards heavy lifting
 
