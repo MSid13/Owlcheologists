@@ -128,7 +128,7 @@ async def main():
 
     await move_motor_port_d(-130, 300)
 
-    await move_straight_for_degrees(900, -800)# Go to silo
+    await move_straight_for_degrees(900, -800)# Go back to home 
 
 
 
