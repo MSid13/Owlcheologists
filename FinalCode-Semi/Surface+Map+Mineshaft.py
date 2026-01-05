@@ -96,12 +96,12 @@ async def main():
     # Turn right facing Mineshaft Explorer
     await motor_pair.move_tank_for_degrees(motor_pair.PAIR_1, -155, -0, 300)
     #Move forward
-    await move_straight_for_degrees(port.F, port.E, 300, 400)
-    #Turn near the oval
+    await move_straight_for_degrees(port.F, port.E, 400, 400)
+    #Turn near the oval to face map revea;
     await motor_pair.move_tank_for_degrees(motor_pair.PAIR_1, -160, 300, -0,)
 
     # Move forward
-    await move_straight_for_degrees(port.F, port.E, 750, 500)
+    await move_straight_for_degrees(port.F, port.E, 690, 500)
 
     # Turn to align with map reveal
     await motor_pair.move_tank_for_degrees(motor_pair.PAIR_1, -100, 300, -0)
