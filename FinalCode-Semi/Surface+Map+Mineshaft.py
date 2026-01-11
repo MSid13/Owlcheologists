@@ -64,19 +64,19 @@ async def main():
     await motor.run_for_degrees(port.D, -140, 100)
 
     # Towards mission (straight using gyro)
-    await move_straight_for_degrees(port.F, port.E, 1190, 600)
+    await move_straight_for_degrees(port.F, port.E, 1200, 600)
 
     # The above code is to reach the mission
 
     # Backward (straight using gyro)
-    await move_straight_for_degrees(port.F, port.E, 300, -400)
+    await move_straight_for_degrees(port.F, port.E, 310, -400)
     await runloop.sleep_ms(500)
 
     # Arm up
     await motor.run_for_degrees(port.D, 20, 180)
     await runloop.sleep_ms(500)
     # move forward
-    await move_straight_for_degrees(port.F, port.E, 145, 400)
+    await move_straight_for_degrees(port.F, port.E, 155, 400)
     # Go forward
     # await move_straight_for_degrees(port.F, port.E, 10, -500)
 
@@ -96,15 +96,15 @@ async def main():
     # Turn right facing Mineshaft Explorer
     await motor_pair.move_tank_for_degrees(motor_pair.PAIR_1, -155, -0, 300)
     #Move forward
-    await move_straight_for_degrees(port.F, port.E, 400, 400)
+    await move_straight_for_degrees(port.F, port.E, 490, 400)
     #Turn near the oval to face map revea;
     await motor_pair.move_tank_for_degrees(motor_pair.PAIR_1, -160, 300, -0,)
-
     # Move forward
-    await move_straight_for_degrees(port.F, port.E, 690, 500)
+    await move_straight_for_degrees(port.F, port.E, 600, 500)
+
 
     # Turn to align with map reveal
-    await motor_pair.move_tank_for_degrees(motor_pair.PAIR_1, -100, 300, -0)
+    await motor_pair.move_tank_for_degrees(motor_pair.PAIR_1, -120, 300, -0)
     # Claw Down
     await motor.run_for_degrees(port.C, 140, 800)
     # One-way Door down
@@ -127,18 +127,23 @@ async def main():
     await move_straight_for_degrees(port.F, port.E, 560, 400)
     #turn
     await motor_pair.move_tank_for_degrees(motor_pair.PAIR_1, -340, 400, -0,)
-    #arm dwon (not touching floor completely)
-    await motor.run_for_degrees(port.D, 170, -400)
+    # One-way Door down
+    await motor.run_for_degrees(port.D, 160, -400)
     #forward
-    await move_straight_for_degrees(port.F, port.E, 640, 600)
+    await move_straight_for_degrees(port.F, port.E, 590, 600)
     #arm up to complete mineshaft
     await motor.run_for_degrees(port.D, 140, 75)
     #turn to align with oval
-    await motor_pair.move_tank_for_degrees(motor_pair.PAIR_1, 340, 400, -0,)
+    await motor_pair.move_tank_for_degrees(motor_pair.PAIR_1, 120, 400, -0,)
+    await motor.run_for_degrees(port.D, 160, -400)
+    await motor_pair.move_tank_for_degrees(motor_pair.PAIR_1, 220, 400, -0,)
+    await motor.run_for_degrees(port.C, 140, -75)
     #forward
     await move_straight_for_degrees(port.F, port.E, 180, 400)
+    await motor_pair.move_tank_for_degrees(motor_pair.PAIR_1, -20, 400, -0,)
     #drop the topsoil
     await motor.run_for_degrees(port.C, 140, 100)
+    await motor.run_for_degrees(port.D, 140, 75)
     await move_straight_for_degrees(port.F, port.E, 200, -400)
     await motor_pair.move_tank_for_degrees(motor_pair.PAIR_1, -500, 800, -0,)
     await move_straight_for_degrees(port.F, port.E, 1500, -800)
