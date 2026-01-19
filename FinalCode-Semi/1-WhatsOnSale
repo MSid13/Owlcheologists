@@ -103,16 +103,15 @@ async def main():
     await move_straight_for_degrees(5, -600)# Go to silo
 
 
-    await move_straight_for_degrees(505, 800)# Go to silo
+    await move_straight_for_degrees(555, 800)# Go to silo
 
     await move_pair_tank_forward(200, 10, 800)# When
 
     await move_straight_for_degrees(505, 800)# Go to silo
 
-    await move_motor_port_d(90, 500)
+    await move_motor_port_d(118, 500)
 
 
-    await move_motor_port_d(-30, 500)
 
 
 
@@ -121,24 +120,171 @@ async def main():
 
 
 
-    await move_motor_port_d(90, 500)
 
 
 
 
     await move_straight_for_degrees(350, -150)# Go to silo
 
-    await motor.run_for_degrees(port.F, -20, 720)
 
 
-    await move_straight_for_degrees(50, 800)# Go to silo
+    await move_straight_for_degrees(100, 400)# Go to silo
 
-    await motor.run_for_degrees(port.F, -20, 720)
 
-    await move_straight_for_degrees(100, 800)# Go to silo
 
 
     await move_motor_port_d(-100, 300)
+
+    await motor.run_for_degrees(port.F, -40, 720)
+
+
+    await move_straight_for_degrees(900, -800)# Go back to home
+
+
+
+
+
+
+
+runloop.run(main())
+# Import necessary modules from the Hub SDK
+from hub import port
+import runloop
+import motor_pair
+import motor
+import time
+from hub import motion_sensor
+async def move_straight_for_degrees(degrees: int, speed: int) -> None:
+    # motor_pair.pair(motor_pair.PAIR_1, left_motor, right_motor)
+
+    motor.reset_relative_position(port.F, 0)
+    motor.reset_relative_position(port.E, 0)
+    # Reset the yaw angle to zero and wait for stabilization
+    motion_sensor.reset_yaw(0)
+    # await runloop.until(motion_sensor.stable)
+
+    # Set the target angle (0 degrees for straight movement)
+    target_angle = 0
+
+    # Define the proportional gain for correction
+    Kp = 0.08# 1# Adjust this value based on your robot's behavior
+
+    # Loop to maintain straight movement
+
+    while (abs(motor.relative_position(port.F))) < abs(degrees):
+        # Get the current yaw angle
+        current_angle = motion_sensor.tilt_angles()[0]
+        # Calculate the error
+        error = target_angle - current_angle# Corrected to target - current
+        # Calculate the correction
+        correction = int(Kp * error)
+        # Adjust the motor speeds to apply correction for straight movement
+        left_speed = speed + int(correction)
+        right_speed = speed - int(correction)
+        # Move the robot with corrected motor speeds
+        motor_pair.move_tank(motor_pair.PAIR_1, left_speed, right_speed)
+        # Small delay for stability
+        await runloop.sleep_ms(10)
+    # Stop the motors after the loop
+    motor_pair.stop(motor_pair.PAIR_1)
+
+    # You run the normal move_for_degrees function.
+    ## CODE STARTS HERE
+
+
+def forward(number):
+    return number
+
+
+def backward(number):
+    return -number
+
+
+async def move_motor_forward(degrees: int, speed: int) -> None:
+    """Move motor on port.C forward for specified degrees at given speed"""
+    await motor.run_for_degrees(port.C, degrees, speed)
+
+async def move_motor_port_f(degrees: int, speed: int) -> None:
+    """Move motor on port.F - always takes positive value, negative applied internally"""
+    await motor.run_for_degrees(port.F, -degrees, speed)
+
+
+async def move_motor_port_d(degrees: int, speed: int) -> None:
+    """Move motor on port.D - always takes positive value, negative applied internally"""
+    await motor.run_for_degrees(port.D, -degrees, speed)
+
+
+async def move_motor_backward(degrees: int, speed: int) -> None:
+    """Move motor on port.C backward for specified degrees at given speed"""
+    await motor.run_for_degrees(port.C, -degrees, speed)
+
+
+async def move_pair_forward(degrees: int, steering: int, velocity: int) -> None:
+    """Move motor pair PAIR_1 forward for specified degrees"""
+    await move_straight_for_degrees(degrees, velocity)
+
+
+async def move_pair_backward(degrees: int, steering: int, velocity: int) -> None:
+    """Move motor pair PAIR_1 backward for specified degrees"""
+    await move_straight_for_degrees(degrees, -velocity)
+
+
+async def move_pair_tank_forward(left_speed: int, right_speed: int, degrees: int) -> None:
+    """Move motor pair PAIR_1 in tank mode forward for specified degrees"""
+    await motor_pair.move_tank_for_degrees(motor_pair.PAIR_1, left_speed, right_speed, degrees)
+
+
+async def move_pair_tank_backward(left_speed: int, right_speed: int, degrees: int) -> None:
+    """Move motor pair PAIR_1 in tank mode backward for specified degrees"""
+    await motor_pair.move_tank_for_degrees(motor_pair.PAIR_1, -left_speed, -right_speed, degrees)
+
+
+
+async def main():
+    motor_pair.pair(motor_pair.PAIR_1, port.F, port.E)
+    left_motor = port.F
+    right_motor = port.E
+    # left side second black line from the left: ALINGMENT POINT
+
+    # move forward towards heavy lifting
+
+    await move_straight_for_degrees(5, -600)# Go to silo
+
+
+    await move_straight_for_degrees(555, 800)# Go to silo
+
+    await move_pair_tank_forward(200, 10, 800)# When
+
+    await move_straight_for_degrees(505, 800)# Go to silo
+
+    await move_motor_port_d(118, 500)
+
+
+
+
+
+    await motor.run_for_degrees(port.F, -70, 720)
+
+
+
+
+
+
+
+
+    await move_straight_for_degrees(350, -150)# Go to silo
+
+
+
+    await move_straight_for_degrees(100, 400)# Go to silo
+
+
+
+
+    await move_motor_port_d(-100, 300)
+
+    await motor.run_for_degrees(port.F, -40, 720)
+
 
     await move_straight_for_degrees(900, -800)# Go back to home
 
