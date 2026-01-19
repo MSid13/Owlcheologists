@@ -95,7 +95,7 @@ async def main():
 
     await move_pair_tank_backward(110, 0, 600)
 
-    await move_pair_backward(250, 0, 600)
+    await move_pair_backward(300, 0, 600)
 
     await move_motor_backward(80, 200)
 
