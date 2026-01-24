@@ -69,7 +69,7 @@ async def main():
     motor_pair.pair(motor_pair.PAIR_1, port.F, port.E)
     #1
     # Ensure arm is in the right position to pick up red thing (FIRST ARM DOWN)
-    await motor.run_for_degrees(port.D, -135, 100)
+    await motor.run_for_degrees(port.D, -137, 100)
 
     # Towards mission (straight using gyro)
     await move_straight_for_degrees(port.F, port.E, 1200, 600)
@@ -138,12 +138,12 @@ async def main():
     await move_straight_for_degrees(port.F, port.E, 360, -400)
     #ADJUST BELOW FORWARD BASED UPON DISTANCE BETWEEN WALL AND MAT
     # forward a bit
-    wall_diff = 5
-    await move_straight_for_degrees(port.F, port.E, (620-wall_diff), 400)
+    wall_diff = 0
+    await move_straight_for_degrees(port.F, port.E, (600-wall_diff), 400)
     #turn
     await motor_pair.move_tank_for_degrees(motor_pair.PAIR_1, -340, 400, -0,)
     # One-way Door down
-    await motor.run_for_degrees(port.D, 160, -400)
+    await motor.run_for_degrees(port.D, 145, -400)
     #forward
     await move_straight_for_degrees(port.F, port.E, 580, 600)
     #arm up to complete mineshaft
@@ -154,7 +154,7 @@ async def main():
     await move_straight_for_degrees(port.F, port.E, -120, 600)
 
     #turn to align with oval
-    await motor_pair.move_tank_for_degrees(motor_pair.PAIR_1, 300, 400, -0,)
+    await motor_pair.move_tank_for_degrees(motor_pair.PAIR_1, 260, 400, -0,)
     await motor.run_for_degrees(port.D, 100, -400)
 
     #forward
