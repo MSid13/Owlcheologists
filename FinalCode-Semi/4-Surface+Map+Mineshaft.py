@@ -145,7 +145,7 @@ async def main():
     # One-way Door down
     await motor.run_for_degrees(port.D, 160, -400)
     #forward
-    await move_straight_for_degrees(port.F, port.E, 620, 600)
+    await move_straight_for_degrees(port.F, port.E, 580, 600)
     #arm up to complete mineshaft
     await motor.run_for_degrees(port.D, 100, 25)
 
@@ -154,11 +154,11 @@ async def main():
     await move_straight_for_degrees(port.F, port.E, -120, 600)
 
     #turn to align with oval
-    await motor_pair.move_tank_for_degrees(motor_pair.PAIR_1, 270, 400, -0,)
-    await motor.run_for_degrees(port.D, 140, -400)
+    await motor_pair.move_tank_for_degrees(motor_pair.PAIR_1, 300, 400, -0,)
+    await motor.run_for_degrees(port.D, 100, -400)
 
     #forward
-    await move_straight_for_degrees(port.F, port.E, 220, 400)
+    await move_straight_for_degrees(port.F, port.E, 200, 400)
 
     #drop the topsoil
     motor.run_for_degrees(port.C, 140, 100)
