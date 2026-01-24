@@ -95,16 +95,21 @@ async def main():
 
     await move_pair_tank_backward(110, 0, 600)
 
-    await move_pair_backward(300, 0, 600)
+    await move_motor_backward(70, 300)
 
-    await move_motor_backward(80, 200)
+
+    await move_pair_backward(180, 0, 600)
+
 
 
     await move_motor_forward(80, 300)
 
     for i in range(10):
-        await move_motor_backward(70, 600)
-        await move_motor_forward(70, 600)
+        await move_motor_backward(80, 300)
+        await move_motor_forward(80, 300)
+
+
+    await move_motor_forward(70, 300)
 
     await move_pair_forward(500, 0, 400)
 
